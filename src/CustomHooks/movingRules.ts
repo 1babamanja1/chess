@@ -97,7 +97,6 @@ const rulesPawn = (moveLines:TCells[], attackLines: TCells[]) => {
             return {move:rookArrays.moveArray, attack:rookArrays.attackArray}
                   
         case 'Pawn':
-            // console.log(piece)
             const {pawnMove, pawnAttack} = createLinesPawn(pieceRow, pieceColumn, piece.color, piece.firstMove)
             const pawnArrays = rulesPawn(pawnMove, pawnAttack)
             return {move:pawnArrays.moveArray, attack:pawnArrays.attackArray}
@@ -105,7 +104,6 @@ const rulesPawn = (moveLines:TCells[], attackLines: TCells[]) => {
         default:
             break;
     }
-
     return {move:[], attack:[]}
 }
 

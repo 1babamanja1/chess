@@ -131,17 +131,18 @@ export const createLinesPawn = (
         [indexOfPieceInRow + 1, indexOfPieceInRow + 2],      
     ].map(row => row.filter(item => rowsNumbers[item]))
 
-    const resultMove: TCells[] = preRes[counter].map(ind =>{ 
-        const res: TCells = `${pieceColumn}${rowsNumbers[ind]}`
+    const resultMove:TCells[] = preRes[counter].map(ind =>{ 
+        const res:TCells = `${pieceColumn}${rowsNumbers[ind]}`
         return res
         })
-
-    const attackRow: TRows =  rowsNumbers[color === 'white' ? indexOfPieceInRow + 1 : indexOfPieceInRow - 1]
+    const attackRow:TRows =  rowsNumbers[color === 'white' ? indexOfPieceInRow + 1 : indexOfPieceInRow - 1]
     const attackColumns:TColumns[] = [columnsLetters[indexOfPieceInColumn -1], columnsLetters[indexOfPieceInColumn +1]]
                             .filter(cell => columnsLetters.includes(cell))
     const resultAttack:TCells[] = attackColumns.map(column => {
-        const res: TCells = `${column}${attackRow}`
+        const res:TCells = `${column}${attackRow}`
         return res
     })
     return {pawnMove: resultMove, pawnAttack: resultAttack}
 }
+
+export const createCastlingSet = () => {}
