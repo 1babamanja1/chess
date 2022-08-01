@@ -11,55 +11,58 @@ import  BlackBishopPic  from './assets/black-bishop.svg'
 import  BlackKnightPic  from './assets/black-knight.svg'
 import  BlackRookPic  from './assets/black-rook.svg'
 import  BlackPawnPic  from './assets/black-pawn.svg'
-import { TCells, TFigures, TColumns, TFigureData, TRows, TDeskCell } from './types'
+import { TCells, TPieces, TColumns, TPieceData, TRows, TDeskCell } from './types'
 
-export const figuresArray: Record<Exclude<TFigures, ''>, TFigureData> = {
+export const piecesArray: Record<Exclude<TPieces, ''>, TPieceData> = {
       whiteKing: {
         asset: WhiteKingPic,
         color: 'white',
         type: 'King',
+        firstMove: true,
     },
     whiteQueen: {
         asset: WhiteQueenPic,
         color: 'white',
         type: 'Queen',
-        
+        firstMove: true,
     },
     whiteBishop1: {
         asset: WhiteBishopPic,
         color: 'white',
         type: 'Bishop',
-        
+        firstMove: true,
     },
     whiteBishop2: {
         asset: WhiteBishopPic,
         color: 'white',
         type: 'Bishop',
-        
+        firstMove: true,
     },
     whiteKnight1: {
         asset: WhiteKnightPic,
         color: 'white',
         type: 'Knight',
-        
-        
+        firstMove: true,        
     },
     whiteKnight2: {
         asset: WhiteKnightPic,
         color: 'white',
         type: 'Knight',
+        firstMove: true,
         
     },
     whiteRook1: {
         asset: WhiteRookPic,
         color: 'white',
         type: 'Rook',
+        firstMove: true,
         
     },
     whiteRook2: {
         asset: WhiteRookPic,
         color: 'white',
         type: 'Rook',
+        firstMove: true,
         
     },
     whitePawn1: {
@@ -122,56 +125,55 @@ export const figuresArray: Record<Exclude<TFigures, ''>, TFigureData> = {
         asset: BlackKingPic,
         color: 'black',
         type: 'King',
-        
+        firstMove: true,
     },
     blackQueen: {
         asset: BlackQueenPic,
         color: 'black',
         type: 'Queen',
-        
+        firstMove: true,
     },
     blackBishop1: {
         asset: BlackBishopPic,
         color: 'black',
         type: 'Bishop',
-        
+        firstMove: true,
     },
     blackBishop2: {
         asset: BlackBishopPic,
         color: 'black',
         type: 'Bishop',
-        
+        firstMove: true,
     },
     blackKnight1: {
         asset: BlackKnightPic,
         color: 'black',
         type: 'Knight',
-        
+        firstMove: true,
     },
     blackKnight2: {
         asset: BlackKnightPic,
         color: 'black',
         type: 'Knight',
-        
+        firstMove: true,
     },
     blackRook1: {
         asset: BlackRookPic,
         color: 'black',
         type: 'Rook',
-        
+        firstMove: true,
     },
     blackRook2: {
         asset: BlackRookPic,
         color: 'black',
         type: 'Rook',
-        
+        firstMove: true,
     },
     blackPawn1: {
         asset: BlackPawnPic,
         color: 'black',
         type: 'Pawn',
         firstMove: true,
-        
     },
     blackPawn2: {
         asset: BlackPawnPic,
@@ -224,7 +226,7 @@ export const figuresArray: Record<Exclude<TFigures, ''>, TFigureData> = {
     },
 }
 
-export const defaultFiguresPosition: Record<Exclude<TFigures, ''>, TCells> = {
+export const defaultPiecesPosition: Record<Exclude<TPieces, ''>, TCells> = {
     whiteKing: 'e1',
     whiteQueen: 'd1',
     whiteBishop1: 'c1',
@@ -260,7 +262,7 @@ export const defaultFiguresPosition: Record<Exclude<TFigures, ''>, TCells> = {
     blackPawn8: 'h7',
 }
 
-export const figuresEnum: TFigures[] = [ 
+export const piecesEnum: TPieces[] = [ 
 'whiteKing',
 'whiteQueen',
 'whiteBishop1',
@@ -296,10 +298,19 @@ export const figuresEnum: TFigures[] = [
 ];
 
 export const columnsLetters: TColumns[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+export const reversedColumnsLetters: TColumns[] = [...columnsLetters].reverse()
 export const rowsNumbers: TRows[] = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
 
 export const flattenDesk = (desk: TDeskCell[][]): TDeskCell[]=> {
     let res: TDeskCell[] = []
     desk.forEach(row => res.push(...row))
     return res
+}
+
+export const findShortestArrayLength = (arr1:any[], arr2:any[]):number => {
+    let minLength = arr1.length;
+    if(arr2.length < arr1.length){
+        minLength = arr2.length
+    }
+    return minLength
 }

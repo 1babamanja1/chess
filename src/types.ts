@@ -3,8 +3,8 @@ export type TColumns = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' ;
 export type TCells = `${TColumns}${TRows}` | ''
 export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack';
 export type TColors = 'black' | 'white';
-export type TFigureType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn';
-export type TFigures = `${TColors}${'King' | 'Queen'}` | `${TColors}${'Bishop' | 'Knight' | 'Rook'}${1 | 2}` | `${TColors}Pawn${TRows}`
+export type TPieceType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn';
+export type TPieces = `${TColors}${'King' | 'Queen'}` | `${TColors}${'Bishop' | 'Knight' | 'Rook'}${1 | 2}` | `${TColors}Pawn${TRows}`
 
 export type TCell = {
         row: TRows;
@@ -12,18 +12,18 @@ export type TCell = {
         state: TCellState;
 }
 
-export type TFigureData = { 
+export type TPieceData = { 
     asset: string | '';
     color: TColors;
-    type: TFigureType;
-    firstMove?: boolean;
+    type: TPieceType;
+    firstMove: boolean;
 }
 
 // export type TDesk = {
 //     name: TCells;
 //     row: TRows;
 //     column: TColumns;
-//     figure: TFigures | '';
+//     piece: TPieces | '';
 //     state: TCellState;
 //     onClick?: () => void;
 // }
@@ -32,7 +32,7 @@ export type TDeskCell = {
     name: TCells;
     row: TRows;
     column: TColumns;
-    figure: TFigureData | undefined;
+    piece: TPieceData | undefined;
     state: TCellState;
     onClick: (() => void) | undefined;
 }
@@ -50,7 +50,8 @@ export type TGameState = {
 export type TUseDeskState = [
     TDeskCell[][],
     TGameState,
+    (cell: TCells, state:TCellState) => void,
     (from: TCells, to: TCells) => void, 
-    (cell:TCells, state:TCellState) => void,
-    (field:string, value: string | TDeskCell) => void
+    (field: string, value: string | TDeskCell) => void,
+    (cell:TCells, pieceField: string, value: string | boolean) => void
 ]

@@ -1,10 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import DeskCell from "./DeskCell"
-import { columnsLetters, defaultFiguresPosition, figuresArray } from "../../defaults"
+import { columnsLetters, defaultPiecesPosition, piecesArray } from "../../defaults"
 import { useDeskState } from "../../CustomHooks/useDeskState"
 import useHandleUserClick from "../../CustomHooks/useHandleUserClick"
-import { TDeskCell, TColumns, TRows, TFigures, TFigureData } from "../../types"
+import { TDeskCell, TColumns, TRows, TPieces, TPieceData } from "../../types"
 import { ColumnsHeader, RowsHeader } from "./DeskHeaders"
 import { sizes } from "../../style/sizes"
 
@@ -12,7 +12,7 @@ const columnsArray: TDeskCell[] = columnsLetters.map((column: TColumns)=> ({
         name: '',
         row: 1,
         column: column,
-        figure: undefined, 
+        piece: undefined, 
         state: 'free',
         onClick: undefined
 }))
@@ -28,14 +28,14 @@ for ( let i: TRows = 8; i >= 1; i-- ){
     )
 }
 
-let figure: TFigures
-const deskWithFigures: TDeskCell[][] = deskArray.map(column => column.map((cell: TDeskCell) => {
-    for (figure in defaultFiguresPosition) {
-        if (defaultFiguresPosition[figure] === cell.name){
-            const res: TFigureData = figuresArray[figure]
+let piece: TPieces
+const deskWithPieces: TDeskCell[][] = deskArray.map(column => column.map((cell: TDeskCell) => {
+    for (piece in defaultPiecesPosition) {
+        if (defaultPiecesPosition[piece] === cell.name){
+            const res: TPieceData = piecesArray[piece]
             return {
                 ...cell,
-                figure: res
+                piece: res
             }
         }
     }
@@ -43,8 +43,23 @@ const deskWithFigures: TDeskCell[][] = deskArray.map(column => column.map((cell:
 }))
 
 const Desk: React.FC = () => {
-    const [desk, gameState, moveFigure, changeCellState, changeGameState] = useDeskState(deskWithFigures) 
-    const [userDesk, handleUserClick] = useHandleUserClick([desk, gameState, moveFigure, changeCellState, changeGameState])
+    const [
+        desk, 
+        gameState, 
+        movePiece, 
+        changeCellState, 
+        changeGameState, 
+        changePieceState
+    ] = useDeskState(deskWithPieces) 
+
+    const [userDesk, handleUserClick] = useHandleUserClick([
+        desk, 
+        gameState, 
+        movePiece, 
+        changeCellState, 
+        changeGameState, 
+        changePieceState
+    ])
     return (
         <DeskWrapper>
         <RowsHeader />
@@ -60,7 +75,7 @@ const Desk: React.FC = () => {
                             row={deskCell.row} 
                             column={deskCell.column} 
                             state={deskCell.state}
-                            figure={deskCell.figure}
+                            piece={deskCell.piece}
                             onClick={() => handleUserClick(deskCell)}
                         /> )
                         } 

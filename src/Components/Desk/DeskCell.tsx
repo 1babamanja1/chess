@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import  UnderMoveDot  from '../../assets/circle.svg'
-import { sizes } from '../../style/sizes';
 import { TDeskCell, TStyledCell } from '../../types';
 
-const DeskCell: React.FC<TDeskCell> = ({row, column, figure, state, onClick}) => {
+const DeskCell: React.FC<TDeskCell> = ({row, column, piece, state, onClick}) => {
     const isCellBlack = (row + column.charCodeAt(0)) % 2 === 0
   return (
     <StyledCell 
@@ -11,7 +10,7 @@ const DeskCell: React.FC<TDeskCell> = ({row, column, figure, state, onClick}) =>
         state={state}
         onClick={onClick}
         >
-        {figure?.asset && <StyledFigure src={figure.asset} alt={`${figure.color}_${figure.type}`}/>}
+        {piece?.asset && <StyledPiece src={piece.asset} alt={`${piece.color}_${piece.type}`}/>}
         {state === 'underMove' && <StyledImg src={UnderMoveDot} alt='under move'/>}
     </StyledCell>
     )}
@@ -57,7 +56,7 @@ const StyledImg = styled.img(() => ({
     // position: 'center',
 }))
 
-const StyledFigure = styled.img(() => ({
+const StyledPiece = styled.img(() => ({
     width: '85%',
     height: '85%',
 }))
