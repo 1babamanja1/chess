@@ -1,6 +1,5 @@
 import { useReducer } from "react";
-import { flattenDesk } from "../defaults";
-import { TDeskCell, TCells, TCellState, TPieceData, TUseDeskState, TGameState} from "../types";
+import { TDeskCell, TCells, TCellState, TPieceData, TUseDeskState, TGameState} from "../../types";
 
 export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
 
@@ -53,7 +52,7 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
                 let pic:TPieceData | undefined = undefined
                 if(!cell|| !pieceField || value) {return state}
 
-                flattenDesk(desk).forEach((stateCell: TDeskCell) => {
+                desk.flat().forEach((stateCell: TDeskCell) => {
                     if (stateCell.name === cell){
                         const statePiece = [stateCell.piece].filter(isNotUndefined)[0]
                         pic = {...statePiece, [pieceField]: value}
@@ -91,7 +90,7 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
 
     const movePiece = (from: TCells, to: TCells): void => {
         let movingPiece: TPieceData | undefined = undefined
-        flattenDesk(state.desk).forEach((cell: TDeskCell) => {
+        state.desk.flat().forEach((cell: TDeskCell) => {
                 if (cell.name === from) {
                     movingPiece = cell.piece
                     }

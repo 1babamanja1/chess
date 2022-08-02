@@ -3,7 +3,7 @@ export type TColumns = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' ;
 export type TCells = `${TColumns}${TRows}` | ''
 export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack';
 export type TColors = 'black' | 'white';
-export type TPieceType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn';
+export type TPieceType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn' | 'PseudoPawn';
 export type TPieces = `${TColors}${'King' | 'Queen'}` | `${TColors}${'Bishop' | 'Knight' | 'Rook'}${1 | 2}` | `${TColors}Pawn${TRows}`
 
 export type TCell = {
@@ -13,20 +13,11 @@ export type TCell = {
 }
 
 export type TPieceData = { 
-    asset: string | '';
+    asset: string;
     color: TColors;
     type: TPieceType;
     firstMove: boolean;
 }
-
-// export type TDesk = {
-//     name: TCells;
-//     row: TRows;
-//     column: TColumns;
-//     piece: TPieces | '';
-//     state: TCellState;
-//     onClick?: () => void;
-// }
 
 export type TDeskCell = {
     name: TCells;

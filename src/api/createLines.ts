@@ -122,8 +122,6 @@ export const createLinesPawn = (
     color === 'white' ? counter += 1 : counter -= 1
     firstMove ? counter += 1 : counter += 0 
 
-    // console.log(counter)
-
     const preRes = [
         [indexOfPieceInRow - 1],
         [indexOfPieceInRow - 1, indexOfPieceInRow -2],

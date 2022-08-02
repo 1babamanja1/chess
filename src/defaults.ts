@@ -301,9 +301,9 @@ export const columnsLetters: TColumns[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h
 export const reversedColumnsLetters: TColumns[] = [...columnsLetters].reverse()
 export const rowsNumbers: TRows[] = [ 1, 2, 3, 4, 5, 6, 7, 8 ]
 
-export const flattenDesk = (desk: TDeskCell[][]): TDeskCell[]=> {
-    let res: TDeskCell[] = []
-    desk.forEach(row => res.push(...row))
+export const findCell = (desk: TDeskCell[][], cellName:TCells) => {
+    const res = [desk.flat().find(deskCell => 
+        deskCell.name === cellName)].filter(isNotUndefined)[0]
     return res
 }
 
@@ -313,4 +313,8 @@ export const findShortestArrayLength = (arr1:any[], arr2:any[]):number => {
         minLength = arr2.length
     }
     return minLength
+}
+
+export function isNotUndefined<T> (argument: T | undefined): argument is T {
+    return argument !== undefined 
 }
