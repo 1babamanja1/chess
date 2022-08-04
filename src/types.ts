@@ -1,10 +1,11 @@
 export type TRows =  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 
 export type TColumns = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' ; 
 export type TCells = `${TColumns}${TRows}` | ''
-export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack';
+export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack' | 'underCastling';
 export type TColors = 'black' | 'white';
 export type TPieceType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn' | 'PseudoPawn';
 export type TPieces = `${TColors}${'King' | 'Queen'}` | `${TColors}${'Bishop' | 'Knight' | 'Rook'}${1 | 2}` | `${TColors}Pawn${TRows}`
+export type TCastlingWay = 'long' | 'short'
 
 export type TCell = {
         row: TRows;

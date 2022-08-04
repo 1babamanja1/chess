@@ -142,5 +142,3 @@ export const createLinesPawn = (
     })
     return {pawnMove: resultMove, pawnAttack: resultAttack}
 }
-
-export const createCastlingSet = () => {}

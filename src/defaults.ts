@@ -307,6 +307,8 @@ export const findCell = (desk: TDeskCell[][], cellName:TCells) => {
     return res
 }
 
+export const createCell = (column: TColumns, row: TRows):TCells => `${column}${row}` 
+
 export const findShortestArrayLength = (arr1:any[], arr2:any[]):number => {
     let minLength = arr1.length;
     if(arr2.length < arr1.length){

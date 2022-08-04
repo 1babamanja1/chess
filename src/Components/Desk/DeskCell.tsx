@@ -12,6 +12,7 @@ const DeskCell: React.FC<TDeskCell> = ({row, column, piece, state, onClick}) => 
         >
         {piece?.asset && <StyledPiece src={piece.asset} alt={`${piece.color}_${piece.type}`}/>}
         {state === 'underMove' && <StyledImg src={UnderMoveDot} alt='under move'/>}
+        {state === 'underCastling' && <StyledImg src={UnderMoveDot} alt='under castling'/>}
     </StyledCell>
     )}
 
@@ -27,13 +28,15 @@ const backgroundColors: IBackgrounds = {
         free: 'green',
         active: 'yellow',
         underMove: 'green',
-        underAttack: 'green'
+        underAttack: 'green',
+        underCastling: 'green'
     },
     white: {
         free: 'white',
         active: 'yellow',
         underMove: 'white',
-        underAttack: 'white'
+        underAttack: 'white',
+        underCastling: 'green'
     },  
 }
 
