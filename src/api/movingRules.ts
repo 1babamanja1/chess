@@ -58,7 +58,7 @@ const rulesPawn = (desk: TDeskCell[][], moveLines:TCells[], attackLines: TCells[
     return {moveArray, attackArray}
 }
 
-const findAvailableCells = (cell: TDeskCell, desk: TDeskCell[][]):{move:TCells[], attack:TCells[]} => {
+    const findAvailableCells = (cell: TDeskCell, desk: TDeskCell[][]):{move:TCells[], attack:TCells[]} => {
 
     const piece:TPieceData = [cell.piece].filter(isNotUndefined)[0]
     const pieceRow:TRows = cell.row

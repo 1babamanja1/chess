@@ -9,7 +9,8 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
 
     const gameState: TGameState = {
         colorTurn: 'white',
-        activeCell: ''
+        activeCell: '',
+        state: 'game'
     }
 
     const initials = {
@@ -17,7 +18,7 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
         game: gameState
     }
 
-    const [state, setState] = useReducer(deskReducer, initials)
+    const [state, setState] = useReducer(deskReducer, initials)     
     
     function deskReducer(
         state:{
@@ -25,7 +26,7 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
             game: TGameState
      }, action: { 
             type: string; 
-            payload: any
+            payload?: any
      }){
         switch (action.type) {
             case 'setCellState':{
@@ -67,9 +68,13 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
             )})
             return {...state, desk: res};
             }  
+            case 'setNewGame': {
+                return initials
+              }
             default:
               throw new Error();
           }
+ 
     }
 
     const setCellState  = (cellName: TCells, field: string, value: string | TPieceData | undefined): void => { 
@@ -99,6 +104,11 @@ export const useDeskState = (initState: TDeskCell[][]): TUseDeskState => {
         setCellState(from,  'piece',  undefined)
         setCellState(to,  'piece',  movingPiece)     
     }
+
+    const newGame = () => {
+        setState({type: 'setNewGame'})
+    }
+
         
-    return [state.desk, state.game, changeCellState, movePiece, changeGameState, changePieceState]
+    return [state.desk, state.game, changeCellState, movePiece, changeGameState, changePieceState, newGame]
 }

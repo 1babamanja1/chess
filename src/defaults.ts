@@ -11,7 +11,7 @@ import  BlackBishopPic  from './assets/black-bishop.svg'
 import  BlackKnightPic  from './assets/black-knight.svg'
 import  BlackRookPic  from './assets/black-rook.svg'
 import  BlackPawnPic  from './assets/black-pawn.svg'
-import { TCells, TPieces, TColumns, TPieceData, TRows, TDeskCell } from './types'
+import { TCells, TPieces, TColumns, TPieceData, TRows, TDeskCell, TColors } from './types'
 
 export const piecesArray: Record<Exclude<TPieces, ''>, TPieceData> = {
       whiteKing: {
@@ -307,6 +307,8 @@ export const findCell = (desk: TDeskCell[][], cellName:TCells) => {
     return res
 }
 
+export const findKing = (desk:TDeskCell[][], kingColor:TColors) => desk.flat().find(cell => cell?.piece?.type === 'King' && cell?.piece?.color === kingColor)
+
 export const createCell = (column: TColumns, row: TRows):TCells => `${column}${row}` 
 
 export const findShortestArrayLength = (arr1:any[], arr2:any[]):number => {
@@ -320,3 +322,5 @@ export const findShortestArrayLength = (arr1:any[], arr2:any[]):number => {
 export function isNotUndefined<T> (argument: T | undefined): argument is T {
     return argument !== undefined 
 }
+
+export const oppositeColor = (color: TColors): TColors => color === 'white' ? 'black' : 'white'

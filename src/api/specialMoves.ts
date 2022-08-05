@@ -1,4 +1,4 @@
-import { createCell, findCell } from "../defaults"
+import { createCell, findCell, oppositeColor } from "../defaults"
 import { TCastlingWay, TCells, TColors, TColumns, TDeskCell, TRows } from "../types"
 import { isCellUnderAttack } from "./isCellUnderAttack"
 
@@ -9,11 +9,11 @@ const castlingSet = (color: TColors, longOrShort: TCastlingWay) => {
        {
             shouldBeEmpty: addRow(['b', 'c', 'd']),
             shouldBeFirstMove: addRow(['a', 'e']),
-            shouldNotBeUnderAttack: addRow(['e', 'c'])
+            shouldNotBeUnderAttack: addRow(['e', 'd', 'c'])
         } : { 
             shouldBeEmpty: addRow(['f', 'g']),
             shouldBeFirstMove: addRow(['e', 'h']),
-            shouldNotBeUnderAttack: addRow(['e', 'g'])
+            shouldNotBeUnderAttack: addRow(['e', 'f', 'g'])
         }
 
 }
@@ -41,7 +41,7 @@ export const castling = (desk:TDeskCell[][], color: TColors) => {
         })
         castlingSet(color, way).shouldNotBeUnderAttack.forEach(cell => {
             const resCell = findCell(desk, cell) 
-            if (isCellUnderAttack(desk, resCell.name, color === 'white' ? 'black' : 'white')){
+            if (isCellUnderAttack(desk, resCell.name, oppositeColor(color))){
                 isCastlingAvailable[way] = false
                 reason = 'underAttack'
             }

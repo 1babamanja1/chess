@@ -11,7 +11,7 @@ const DeskCell: React.FC<TDeskCell> = ({row, column, piece, state, onClick}) => 
         onClick={onClick}
         >
         {piece?.asset && <StyledPiece src={piece.asset} alt={`${piece.color}_${piece.type}`}/>}
-        {state === 'underMove' && <StyledImg src={UnderMoveDot} alt='under move'/>}
+        {(state === 'underMove' || state ==='underRestrictedMove') && <StyledImg src={UnderMoveDot} alt='under move'/>}
         {state === 'underCastling' && <StyledImg src={UnderMoveDot} alt='under castling'/>}
     </StyledCell>
     )}
@@ -29,14 +29,20 @@ const backgroundColors: IBackgrounds = {
         active: 'yellow',
         underMove: 'green',
         underAttack: 'green',
-        underCastling: 'green'
+        underCastling: 'green',
+        underRestrictedMove: 'grey',
+        underRestrictedAttack: 'grey',
+        underCheck: 'orange',
     },
     white: {
         free: 'white',
         active: 'yellow',
         underMove: 'white',
         underAttack: 'white',
-        underCastling: 'green'
+        underCastling: 'white',
+        underRestrictedMove: 'grey',
+        underRestrictedAttack: 'grey',
+        underCheck: 'orange',
     },  
 }
 
@@ -44,7 +50,7 @@ const StyledCell = styled.div<TStyledCell>(({isBlack, state}) => ({
     width: `${1/8 * 100}%`,
     height:  `100%`,
     backgroundColor: isBlack ? backgroundColors.black[state] : backgroundColors.white[state],
-    boxShadow: state === 'underAttack' ? 'inset 0 0 3px 3px rgba(255, 0, 0, 100%)' : 'none',
+    boxShadow: state === 'underAttack' || state === 'underRestrictedAttack' ? 'inset 0 0 3px 3px rgba(255, 0, 0, 100%)' : 'none',
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',

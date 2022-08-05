@@ -1,12 +1,16 @@
 import React from "react"
 import styled from "styled-components"
 import DeskCell from "./DeskCell"
-import { columnsLetters, defaultPiecesPosition, piecesArray } from "../../defaults"
+import { columnsLetters, defaultPiecesPosition, oppositeColor, piecesArray } from "../../defaults"
 import { useDeskState } from "../../api/CustomHooks/useDeskState"
 import useHandleUserClick from "../../api/CustomHooks/useHandleUserClick"
 import { TDeskCell, TColumns, TRows, TPieces, TPieceData } from "../../types"
 import { ColumnsHeader, RowsHeader } from "./DeskHeaders"
 import { sizes } from "../../style/sizes"
+
+type TStyledEndGamePane = {
+    visible: boolean
+}
 
 const columnsArray: TDeskCell[] = columnsLetters.map((column: TColumns)=> ({
         name: '',
@@ -49,7 +53,8 @@ const Desk: React.FC = () => {
         movePiece, 
         changeCellState, 
         changeGameState, 
-        changePieceState
+        changePieceState,
+        newGame
     ] = useDeskState(deskWithPieces) 
 
     const [userDesk, handleUserClick] = useHandleUserClick([
@@ -58,9 +63,11 @@ const Desk: React.FC = () => {
         movePiece, 
         changeCellState, 
         changeGameState, 
-        changePieceState
+        changePieceState,
+        newGame
     ])
     return (
+        <>
         <DeskWrapper>
         <RowsHeader />
                 <div>
@@ -87,7 +94,19 @@ const Desk: React.FC = () => {
                 
             <RowsHeader />
         </DeskWrapper>
-        
+        <StyledEndGamePane visible={gameState.state === 'checkmate'}>
+            <StyledEndGameInner> 
+                <span>Checkmate! Win: {oppositeColor(gameState.colorTurn)}</span> 
+                <StyledButton onClick={newGame}> New Game </StyledButton>
+            </StyledEndGameInner>
+        </StyledEndGamePane>
+        <StyledEndGamePane visible={gameState.state === 'stalemate'}>
+            <StyledEndGameInner> 
+                <span>Stalemate!</span>
+                <StyledButton onClick={newGame}> New Game </StyledButton>
+            </StyledEndGameInner>    
+        </StyledEndGamePane>
+        </>     
 )}
 
 export default Desk
@@ -116,6 +135,49 @@ const StyledRow = styled.div(() => ({
     height:  '100%'
 }))
 
+
+const StyledEndGamePane = styled.div<TStyledEndGamePane>(({visible}) => ({
+    display: visible ? 'flex' : 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom:0,
+    backgroundColor: 'RGBA(0, 0, 0, 0.8)',
+    // opacity: 0.8
+}))
+
+const StyledEndGameInner = styled.div(() => ({
+    display: 'flex',
+    padding: '15px',
+    'flex-direction': 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '250px',
+    height: '100px',
+    backgroundColor: 'white',
+    opacity: 1,
+    borderRadius: '20px',
+}))
+
+const StyledButton = styled.div(() => ({
+    border: '1px solid green',
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100px',
+    height: '30px',
+    margin: '15px 0',
+    'border-radius': '5px',
+    '&:hover':{
+        backgroundColor: 'green',
+        color: 'white',
+        transition: '0.3s'
+    }
+}))
 
 
 

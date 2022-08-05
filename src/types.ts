@@ -1,7 +1,7 @@
 export type TRows =  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 
 export type TColumns = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' ; 
 export type TCells = `${TColumns}${TRows}` | ''
-export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack' | 'underCastling';
+export type TCellState = 'free' | 'active' | 'underMove' | 'underAttack' | 'underCastling' | 'underRestrictedMove' | 'underRestrictedAttack' | 'underCheck';
 export type TColors = 'black' | 'white';
 export type TPieceType = 'King' | 'Queen' | 'Bishop' | 'Knight' | 'Rook' | 'Pawn' | 'PseudoPawn';
 export type TPieces = `${TColors}${'King' | 'Queen'}` | `${TColors}${'Bishop' | 'Knight' | 'Rook'}${1 | 2}` | `${TColors}Pawn${TRows}`
@@ -37,6 +37,7 @@ export type TStyledCell = {
 export type TGameState = {
     colorTurn: 'black' | 'white',
     activeCell: '' | TDeskCell,
+    state: 'game' | 'checkmate' | 'stalemate'
 }
 
 export type TUseDeskState = [
@@ -45,5 +46,6 @@ export type TUseDeskState = [
     (cell: TCells, state:TCellState) => void,
     (from: TCells, to: TCells) => void, 
     (field: string, value: string | TDeskCell) => void,
-    (cell:TCells, pieceField: string, value: string | boolean) => void
+    (cell:TCells, pieceField: string, value: string | boolean) => void,
+    () => void
 ]
